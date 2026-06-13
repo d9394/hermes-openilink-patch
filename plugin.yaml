@@ -1,0 +1,22 @@
+name: "openilink"
+display_name: "OpeniLink Hub"
+description: "通过 OpeniLink Hub 的 WebSocket 机器人 API 将 Hermes 代理连接到各类消息平台 (如微信)"
+version: "1.0.0"
+
+# 注册核心钩子函数和入口
+entry_point: "adapter:register"
+apply_yaml_config_fn: "adapter:apply_yaml_config"
+env_enablement_fn: "adapter:env_enablement"
+
+# 声明平台所需的环境变量，供 CLI 设置向导自动解析、隐藏输入并生成引导
+requires_env:
+  OPENILINK_TOKEN:
+    description: "OpeniLink Hub 的 Bot API 访问凭证 (Token)"
+    password: true  # 提示输入时隐藏文字
+  OPENILINK_HUB_URL:
+    description: "OpeniLink Hub 服务的基准 HTTP/HTTPS URL (例如 https://localhost:9800)"
+    default: "https://localhost:9800"
+
+optional_env:
+  OPENILINK_HOME_CHANNEL:
+    description: "默认的定时任务通知投递 Channel ID/Chat ID"
